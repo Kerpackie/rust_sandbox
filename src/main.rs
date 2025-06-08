@@ -125,9 +125,60 @@ fn closures()
     dbg!(new_num);
 }
 
+// Number literals - from the Rust Book.
+fn number_literals()
+{
+    println!("Big Number is: {}", 98_222_000); // use underscores to deliminate and split big numbers
+    println!("hex is {}", 0xff);
+    println!("Octal is {}", 0o77);
+    println!("Binary is {}", 0b1111_0000);
+    println!("Bytes 'A' is {}", b'A');
+    
+    // Raw - String Literal
+    let text: &str = r#"{message : "Rust is awesome!"}"#; // Raw string litterals are like using @ in C#
+    dbg!(text);
+}
+
+// Binary
+fn binary(){
+    let a: u8 = 0b_1010_1010;
+    let b: u8 = 0b_0101_1010;
+    
+    println!("a's value is {}", a);
+    println!("b's value is {}", b);
+    
+    println!("a in binary {:08b}", a);
+    println!("b in binary {:08b}", b);
+    
+    // Logic Gates
+    println!("AND {:08b}", a & b);
+    println!("OR {:08b}", a | b);
+    println!("XOR {:08b}", a ^ b);
+    println!("NOT {:08b}", !a);
+    
+    // Bitwise Operations
+    
+    // Bit Shift
+    println!("a's value is {}", a);
+    println!("a in binary {:08b}", a);
+    println!("a << 1 {:08b}", a << 1); // Bit shift left 1
+    println!("a's value is {}", a << 1); // 84
+    println!("a >> 1 {:08b}", a >> 1); // bit shift right 1
+    println!("a's value is {}", a >> 1); // 85
+    
+    // Little and Big Endian
+    let n: u16 = 0x1234;
+    println!("n is: {:?}", n);
+    
+    let big_endian = n.to_be_bytes();
+    let little_endian = n.to_le_bytes();
+    
+    println!("n in big endian: {:02X}{:02X}", big_endian[0], big_endian[1]);
+    println!("n in little endian: {:02X}{:02X}", little_endian[0], little_endian[1])
+}
 
 fn main() {
     println!("Welcome to the sandbox, {}", WELCOME_CONST);
 
-    closures()
+    binary()
 }
