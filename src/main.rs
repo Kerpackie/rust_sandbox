@@ -1,6 +1,7 @@
 mod enums;
 mod structs;
 mod traits;
+mod polymorphism;
 
 const WELCOME_CONST: &str = "Stay around and play!"; // Const stored in static memory and on stack.
 
