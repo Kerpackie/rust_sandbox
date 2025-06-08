@@ -2,7 +2,7 @@ const WELCOME_CONST: &str = "Stay around and play!"; // Const stored in static m
 
 
 fn main() {
-    println!("Welcome to the sandbox, {}", WELCOME_CONST);
+/*    println!("Welcome to the sandbox, {}", WELCOME_CONST);
 
     // Stack
     let x: i32 = 2;
@@ -47,6 +47,42 @@ fn main() {
     println!("my_ints is {:#?}", my_ints); //  or :#? for pretty printing
 
     let my_floats_new: [f32; 10] = my_floats.map(|n|n + 2.0); // || are closures, they seem to be like lambdas eg, n => n + 2.0
-    println!("my_floats_new is: {:?}", my_floats_new);
+    println!("my_floats_new is: {:?}", my_floats_new);*/
+
+    let name: &str = "Cillian"; //String literal - use & to act as a reference to heap location.
+
+    println!("name is {:?}", name);
+
+    let dynamic_name: String = String::from("Cillian Keogh");
+    println!("dynamic name is {:?}", dynamic_name);
+    println!("My dynamic name stored in memory {:p}", &dynamic_name); // :p is a pointer
+
+    let dynamic_name: String = name.to_string(); // this is the same as doing String = String::from();
+    println!("dynamic name is {:?}", dynamic_name);
+    let dynamic_name: String = "Cillian Keogh".to_string();
+    println!("dynamic name is {:?}", dynamic_name);
+
+    // Get a slice of 7 characters.
+    let str_slice: &str = &dynamic_name[0..7];
+    println!("str_slice is {:?}", str_slice);
+
+    // Vectors!
+    let mut chars: Vec<char> = Vec::new();
+    // Insert to a position in the vector
+    chars.insert(0, 'h');
+    chars.insert(1, 'e');
+    chars.insert(2, 'l');
+
+    // Push to next position in vector
+    chars.push('l');
+    chars.push('o');
+    chars.push('.');
     
+    println!("chars is {:?}", chars);
+    
+    dbg!(&chars); // debug macro - we need to use the reference to prevent change of ownership to the debug statement
+    
+    let removed_char: char = chars.pop().unwrap(); // expects an option enum by default, so we iwll use unwrap.
+    println!("removed char is {:?}", removed_char);
+    println!("chars is {:?}", chars)
 }
