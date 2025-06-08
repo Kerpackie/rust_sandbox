@@ -114,10 +114,20 @@ fn vectors_and_collections()
     }
 }
 
+// Closures
+
+fn closures()
+{
+    let num: i32 = 5;
+    let add_num = |x: i32| x + num; // closures are similar to lambda or Func<int, int> in C\
+    let new_num: i32 = add_num(7);
+    
+    dbg!(new_num);
+}
 
 
 fn main() {
     println!("Welcome to the sandbox, {}", WELCOME_CONST);
 
-    vectors_and_collections();
+    closures()
 }
