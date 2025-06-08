@@ -1,9 +1,7 @@
 const WELCOME_CONST: &str = "Stay around and play!"; // Const stored in static memory and on stack.
 
-
-fn main() {
-/*    println!("Welcome to the sandbox, {}", WELCOME_CONST);
-
+fn simple_variables()
+{
     // Stack
     let x: i32 = 2;
     println!("The value of x is: {}", x);
@@ -39,7 +37,10 @@ fn main() {
 
     let ascii_char: char = '😎';
     println!("ascii_char is {}", ascii_char);
+}
 
+fn simple_arrays()
+{
     let my_floats: [f32; 10] = [0.0; 10]; // define array of float32, qty 10, then assign 0.0 to each position.
     println!("my_floats is {:?}", my_floats); // :? is needed for printing,
 
@@ -47,8 +48,11 @@ fn main() {
     println!("my_ints is {:#?}", my_ints); //  or :#? for pretty printing
 
     let my_floats_new: [f32; 10] = my_floats.map(|n|n + 2.0); // || are closures, they seem to be like lambdas eg, n => n + 2.0
-    println!("my_floats_new is: {:?}", my_floats_new);*/
+    println!("my_floats_new is: {:?}", my_floats_new);
+}
 
+fn strings()
+{
     let name: &str = "Cillian"; //String literal - use & to act as a reference to heap location.
 
     println!("name is {:?}", name);
@@ -65,7 +69,10 @@ fn main() {
     // Get a slice of 7 characters.
     let str_slice: &str = &dynamic_name[0..7];
     println!("str_slice is {:?}", str_slice);
+}
 
+fn vectors_and_collections()
+{
     // Vectors!
     let mut chars: Vec<char> = Vec::new();
     // Insert to a position in the vector
@@ -77,12 +84,40 @@ fn main() {
     chars.push('l');
     chars.push('o');
     chars.push('.');
-    
+
     println!("chars is {:?}", chars);
-    
+
     dbg!(&chars); // debug macro - we need to use the reference to prevent change of ownership to the debug statement
-    
+
     let removed_char: char = chars.pop().unwrap(); // expects an option enum by default, so we iwll use unwrap.
     println!("removed char is {:?}", removed_char);
-    println!("chars is {:?}", chars)
+    println!("chars is {:?}", chars);
+
+    chars.iter().for_each(|c| println!("char is {}", c)); // define an itterator, and the foreach.
+
+    let chars_again: Vec<char> = vec!('h', 'e', 'l', 'l', 'o'); // Alternate way to create a vector.
+    dbg!(&chars_again); // use the reference in-case we want to use it again.
+
+    let collected: String = chars_again.iter().collect(); // Iterate over and collect them all.
+    dbg!(collected);
+
+    // What would happen if we did it with ints?
+    //let int_vec: Vec<i32> = vec!(1, 2, 3, 4);
+    //let int_vec_collected: i32 = int_vec.iter().collect();
+    // It does not allow us to do this! Interesting!
+    
+    for c in chars_again{
+        print!("{}", c);
+        if c == 'o' { 
+            println!(", world!");
+        }
+    }
+}
+
+
+
+fn main() {
+    println!("Welcome to the sandbox, {}", WELCOME_CONST);
+
+    vectors_and_collections();
 }
