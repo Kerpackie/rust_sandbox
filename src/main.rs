@@ -1,3 +1,5 @@
+mod enums;
+
 const WELCOME_CONST: &str = "Stay around and play!"; // Const stored in static memory and on stack.
 
 fn simple_variables()
@@ -179,6 +181,18 @@ fn binary(){
 
 fn main() {
     println!("Welcome to the sandbox, {}", WELCOME_CONST);
-
-    binary()
+    
+    simple_variables();
+    
+    simple_arrays();
+    
+    strings();
+    
+    vectors_and_collections();
+    
+    closures();
+    
+    number_literals();
+    
+    binary();
 }
