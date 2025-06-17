@@ -197,3 +197,103 @@ fn example_2_3() {
         }
     }
 }
+
+/// This example demonstrates a **generic function** that compares two references and returns
+/// a reference to the larger one. It uses:
+///
+/// - Generics (`T`) so it can work with any type
+/// - Trait bounds (`T: PartialOrd`) so the values can be compared
+/// - Explicit lifetimes (`'a`) so the compiler knows how long the returned reference is valid
+///
+/// The caller safely dereferences the result **before** any inputs go out of scope,
+/// ensuring there's no lifetime violation.
+fn example_3_generics() {
+    // Declare a reference to a value and a place to store the copied value.
+    let highest_age: &i32;  // Will point to either alice_age or bob_age
+    let new_value: i32;     // Will store a safe, copied value
+
+    // First value lives throughout the function
+    let alice_age: i32 = 20;
+
+    {
+        // Second value lives only within this inner scope
+        let bob_age: i32 = 21;
+
+        // Call the generic function, explicitly specifying the type as i32
+        // This is optional — Rust can infer `T = i32` here, so `::<i32>` can be omitted.
+        highest_age = largest::<i32>(&alice_age, &bob_age);
+
+        // Immediately dereference the returned reference while both inputs are still valid
+        new_value = *highest_age;
+    } // bob_age is dropped here — highest_age would be invalid beyond this point
+
+    // Use the safe, copied value
+    println!("Highest age is: {}", new_value);
+
+    /// Generic function that returns a reference to the larger of two inputs
+    ///
+    /// `'a` is the lifetime of both input references and the returned reference.
+    /// `T` is any type that can be compared using `>`, as guaranteed by `T: PartialOrd`.
+    fn largest<'a, T: PartialOrd>(compare_1: &'a T, compare_2: &'a T) -> &'a T {
+        if compare_1 > compare_2 {
+            compare_1
+        } else {
+            compare_2
+        }
+    }
+}
+
+/// This example demonstrates how to use **structs with lifetimes** and safely compare
+/// borrowed data from two `Person` instances.
+///
+/// The key concepts are:
+/// - Structs holding references need lifetime annotations
+/// - Generic functions using lifetimes and trait bounds
+/// - Safely copying values before the data they're borrowed from goes out of scope
+struct Person<'p> {
+    name: &'p str,    // Borrowed string slice
+    points: &'p f32,  // Borrowed float reference
+}
+
+fn example_4_structs() {
+    // Reference to the highest points value (lifetime-bound)
+    let highest_age: &f32;
+
+    // Variable to store a safe, copied version of the highest points
+    let new_value: f32;
+
+    // Alice's data is valid throughout the function, so her references live long enough
+    let alice: Person = Person {
+        name: "Alice",
+        points: &50.2,
+    };
+
+    {
+        // Bob’s data only lives in this block
+        let bob: Person = Person {
+            name: "Bob",
+            points: &40.5,
+        };
+
+        // Call the generic largest function to compare Alice’s and Bob’s points
+        // It returns a reference to the larger value
+        highest_age = largest::<f32>(alice.points, bob.points);
+
+        // Copy the value pointed to by the reference while still in the valid scope
+        new_value = *highest_age;
+    } // bob is dropped here, so `bob.points` is no longer valid
+
+    // Use the copied value — this is safe
+    println!("Highest age is: {}", new_value);
+
+    /// Generic function that compares two references and returns the larger one
+    ///
+    /// `'a` ensures the returned reference does not outlive either input
+    fn largest<'a, T: PartialOrd>(compare_1: &'a T, compare_2: &'a T) -> &'a T {
+        if compare_1 > compare_2 {
+            compare_1
+        } else {
+            compare_2
+        }
+    }
+}
