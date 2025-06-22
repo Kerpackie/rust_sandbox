@@ -3,6 +3,7 @@ mod polymorphism;
 mod structs;
 mod traits;
 mod lifetimes;
+mod patterns;
 
 const WELCOME_CONST: &str = "Stay around and play!"; // Const stored in static memory and on stack.
 
