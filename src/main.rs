@@ -5,6 +5,7 @@ mod traits;
 mod lifetimes;
 mod patterns;
 mod async_demo;
+mod collections;
 
 const WELCOME_CONST: &str = "Stay around and play!"; // Const stored in static memory and on stack.
 
