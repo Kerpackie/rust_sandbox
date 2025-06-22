@@ -1,4 +1,3 @@
-use ethers::core::k256::elliptic_curve::weierstrass::add;
 use ethers::types::Address;
 use std::str::FromStr;
 // We want to use generics to basically filter by the trait we want to implement.

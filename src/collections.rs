@@ -1,9 +1,8 @@
-use std::collections::{HashMap, HashSet};
 
 #[cfg(test)]
 
 mod test{
-    use super::*;
+    use std::collections::{HashMap, HashSet};
     
     #[test]
     fn tests_hashmap() {

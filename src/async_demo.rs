@@ -1,6 +1,4 @@
 use std::io::{Error, ErrorKind};
-use reqwest::Response;
-use serde_json::json;
 
 async fn my_async_call_decode_errors(url: &str) -> Result<serde_json::Value, Error> {
     

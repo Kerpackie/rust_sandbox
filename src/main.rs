@@ -6,6 +6,7 @@ mod lifetimes;
 mod patterns;
 mod async_demo;
 mod collections;
+mod decl_macros;
 
 const WELCOME_CONST: &str = "Stay around and play!"; // Const stored in static memory and on stack.
 
