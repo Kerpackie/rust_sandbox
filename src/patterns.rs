@@ -1,8 +1,47 @@
+
+#[derive(Debug)]
+enum Message {
+    Quit,
+    ChangeColour(i32, i32, i32),
+    Move { x: i32, y: i32},
+    Write(String)
+}
+
+fn process_message(msg: Message){
+    match msg {
+        Message::Quit => {
+            println!("I Quit!")
+        },
+        Message::ChangeColour(red, green, blue) => {
+            println!("Red: {}, Green: {}, Blue: {}", red, green, blue)
+        },
+        Message::Move { x, y: new_name } => {
+            println!("X is {}, Y is as new_name is {}", x, new_name)
+        }
+        Message::Write(text) => {
+            println!("{}", text)
+        }
+    }
+}
+
 #[cfg(test)]
 mod test {
-    use std::panic::panic_any;
-    use ethers::types::Res;
     use super::*;
+
+    #[test]
+    fn tests_large_enum() {
+        let my_quit: Message = Message::Quit;
+        process_message(my_quit);
+        
+        let my_colour: Message = Message::ChangeColour(10, 20, 255);
+        process_message(my_colour);
+        
+        let my_move: Message = Message::Move {x: 10, y: 100};
+        process_message(my_move);
+        
+        let my_write: Message = Message::Write("My awesome string".to_string());
+        process_message(my_write);
+    }
     
     #[test]
     fn tests_match_literals() {
